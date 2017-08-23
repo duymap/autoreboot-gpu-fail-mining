@@ -3,3 +3,5 @@
 - This is used for NVIDIA GPUs only
 - This need to be installed nvidia-smi command line tool
 - So far support autoreboot for Window only since gpu fail mining
+
+This is first version so far, I appreciate if anyone can help to report any issue found.
