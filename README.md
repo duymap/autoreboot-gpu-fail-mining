@@ -3,6 +3,17 @@
 
 # Environment set up:
 - This has been written by Java, so you need to download and install [JDK8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) FIRST!
+- Dowload latest zip file in [release](https://github.com/duymap/autoreboot-gpu-fail-mining/releases) page. The zip contains .jar file and config.properties
+- In config.properties:
+	- Set nvidia-smi-path=<YOUR_NVIDIA_SMI_HOME_FOLDER>. Example: C:/Program Files/NvidiaCoporation/NVSMI/ which is folder contains nvidia-smi.exe
+	- Create reboot.bat which is same folder with .jar file. It would contains window command reboot. 
+	- Set reboot-file=reboot.bat
+	- Set power-threshold=<your-threshold-power>. This is integer value. Example: if you set 50, if your GPU power is under 50 Watt, the code will conside this does not work in mining.
+	- Create a run.bat file which is same folder with .jar file and contains below command:
+		```
+			java -jar gpu-fail-mining-watcher.jar
+		```
+	- Since all above completed, you can run run.bat.
 
 # Notes
 - This is used for NVIDIA GPUs only
