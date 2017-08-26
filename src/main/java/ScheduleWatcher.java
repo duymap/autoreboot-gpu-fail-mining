@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,7 +16,7 @@ import java.util.TimerTask;
 public class ScheduleWatcher extends TimerTask  {
 
 	private static ScheduleWatcher instance = null;	
-	private String command = "nvidia-smi --format=csv --query-gpu=power.draw";
+	private String command = "nvidia-smi --format=csv,noheader --query-gpu=power.draw";
 	private Configuration config;
 	
 	public static ScheduleWatcher getInstance() {
@@ -33,7 +34,7 @@ public class ScheduleWatcher extends TimerTask  {
 	@Override
 	public void run() {
 		try { 
-			Process process = Runtime.getRuntime().exec(command);
+			Process process = Runtime.getRuntime().exec(config.getPath() + File.separator + command);
 			InputStream is = process.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line;            
@@ -52,8 +53,8 @@ public class ScheduleWatcher extends TimerTask  {
 
 	private void reboot() throws IOException {
 		// kick off another .bat/.sh file to reboot
-		if (config.getRebootFile().endsWith(".bat")) {
-			Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", config.getRebootFile()});
+		if (config.getRebootFile().endsWith(".bat")) {		
+			Runtime.getRuntime().exec("cmd /c start " + config.getRebootFile());
 		} else if (config.getRebootFile().endsWith(".sh")) {
 			//TODO	
 		}
